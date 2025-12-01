@@ -8,34 +8,40 @@
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
     :root {
-      --bg: #f4f6fb;
-      --bg-accent: #e1e8ff;
+      --bg: #f6f8fc;
+      --bg-accent: #dfe7ff;
       --card: #ffffff;
-      --accent: #3559eb;
+      --accent: #3b5bff;
       --accent-2: #7c3aed;
       --text: #0f172a;
-      --muted: #5f6b7c;
+      --muted: #52607a;
       --danger: #dc2626;
       --radius-lg: 18px;
       --radius-pill: 999px;
-      --shadow-soft: 0 22px 60px rgba(17, 24, 39, 0.16);
-      --shadow-subtle: 0 10px 30px rgba(17, 24, 39, 0.14);
+      --shadow-soft: 0 24px 60px rgba(17, 24, 39, 0.14);
+      --shadow-subtle: 0 12px 34px rgba(17, 24, 39, 0.1);
       --transition-fast: 150ms ease-out;
       --transition-med: 220ms ease;
     }
 
     * { box-sizing: border-box; }
 
+    html { max-width: 100%; overflow-x: hidden; }
+
     body {
       margin: 0;
       font-family: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
-      background: radial-gradient(circle at 10% 15%, rgba(53, 89, 235, 0.14), transparent 26%),
-                  radial-gradient(circle at 80% 10%, rgba(124, 58, 237, 0.12), transparent 25%),
-                  linear-gradient(180deg, #f8fbff 0%, #f3f6fd 45%, #edf0f7 100%);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(59, 91, 255, 0.14), transparent 28%),
+        radial-gradient(circle at 82% 16%, rgba(124, 58, 237, 0.12), transparent 22%),
+        linear-gradient(180deg, #f9fbff 0%, #f2f4fb 50%, #edf0f7 100%),
+        repeating-linear-gradient(90deg, transparent 0, transparent 36px, rgba(59, 91, 255, 0.025) 36px, rgba(59, 91, 255, 0.025) 72px);
       color: var(--text);
       min-height: 100vh;
       display: flex;
       justify-content: center;
+      overflow-x: hidden;
+      scrollbar-gutter: stable both-edges;
     }
 
     .page {
@@ -44,6 +50,8 @@
       padding: 14px 14px 28px;
       position: relative;
       z-index: 1;
+      margin: 0 auto;
+      overflow-x: hidden;
     }
 
     .page::before,
@@ -51,7 +59,7 @@
       content: "";
       position: absolute;
       filter: blur(60px);
-      opacity: 0.75;
+      opacity: 0.7;
       pointer-events: none;
       z-index: -1;
     }
@@ -59,7 +67,7 @@
     .page::before {
       width: 240px;
       height: 240px;
-      background: rgba(53, 89, 235, 0.12);
+      background: rgba(59, 91, 255, 0.12);
       top: 40px;
       right: -60px;
     }
@@ -72,12 +80,13 @@
       left: -40px;
     }
 
+
     header {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(240, 244, 255, 0.95)),
-                  radial-gradient(circle at top left, rgba(53, 89, 235, 0.1), transparent 55%);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(240, 244, 255, 0.96)),
+                  radial-gradient(circle at top left, rgba(59, 91, 255, 0.1), transparent 55%);
       border-radius: 20px;
       padding: 12px 12px 10px;
-      box-shadow: var(--shadow-soft);
+      box-shadow: 0 8px 24px rgba(17, 24, 39, 0.08);
       border: 1px solid rgba(136, 146, 171, 0.42);
       position: sticky;
       top: 4px;
@@ -103,15 +112,15 @@
       gap: 6px;
       padding: 4px 9px;
       border-radius: var(--radius-pill);
-      background: linear-gradient(135deg, rgba(53, 89, 235, 0.12), rgba(124, 58, 237, 0.12));
-      border: 1px solid rgba(53, 89, 235, 0.24);
+      background: linear-gradient(135deg, rgba(59, 91, 255, 0.14), rgba(124, 58, 237, 0.14));
+      border: 1px solid rgba(59, 91, 255, 0.26);
       font-size: 10px;
       color: #0f1f5a;
       text-transform: uppercase;
       letter-spacing: 0.07em;
       font-weight: 700;
       white-space: nowrap;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
     }
 
     .pill span.emoji { font-size: 13px; }
@@ -134,26 +143,27 @@
 
     .rules {
       margin-top: 8px;
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 8px;
       font-size: 11.5px;
       color: var(--muted);
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.92);
       border: 1px solid rgba(148, 163, 184, 0.38);
       border-radius: 12px;
-      padding: 8px 10px;
+      padding: 8px 8px 6px;
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
     }
 
     .rules div {
-      background: rgba(241, 245, 255, 0.9);
+      background: linear-gradient(135deg, rgba(239, 246, 255, 0.95), rgba(231, 235, 255, 0.9));
       border: 1px solid rgba(148, 163, 184, 0.35);
       border-radius: 10px;
-      padding: 6px 8px;
+      padding: 7px 9px;
       line-height: 1.35;
-      flex: 1 1 220px;
-      min-width: 180px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
     }
 
     .rules strong { color: #d97706; font-weight: 700; }
@@ -170,31 +180,32 @@
       padding: 5px 10px;
       font-size: 11px;
       border-radius: var(--radius-pill);
-      border: 1px solid rgba(136, 146, 171, 0.55);
-      color: var(--muted);
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(241, 245, 255, 0.9));
+      border: 1px solid rgba(136, 146, 171, 0.5);
+      color: #0f1f5a;
+      background: linear-gradient(135deg, rgba(59, 91, 255, 0.14), rgba(124, 58, 237, 0.12));
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+      font-weight: 600;
     }
 
     /* Filter Buttons */
 
     .filter-bar {
-      margin-top: 10px;
       display: flex;
       flex-wrap: nowrap;
       gap: 8px;
       overflow-x: auto;
-      padding: 2px 0 6px;
+      padding: 6px 2px 8px;
       scrollbar-width: thin;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
     }
 
     .filter-btn {
       flex: 0 0 auto;
       padding: 9px 14px;
       font-size: 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(136, 146, 171, 0.55);
-      background: rgba(255, 255, 255, 0.92);
+      border-radius: 12px;
+      border: 1px solid rgba(136, 146, 171, 0.4);
+      background: rgba(255, 255, 255, 0.94);
       color: var(--muted);
       cursor: pointer;
       display: inline-flex;
@@ -208,104 +219,90 @@
     .filter-btn span { font-size: 14px; }
 
     .filter-btn.active {
-      background: linear-gradient(135deg, rgba(53, 89, 235, 0.14), rgba(124, 58, 237, 0.18));
-      border-color: rgba(53, 89, 235, 0.6);
+      background: linear-gradient(135deg, rgba(59, 91, 255, 0.16), rgba(124, 58, 237, 0.18));
+      border-color: rgba(59, 91, 255, 0.55);
       color: #0f1f5a;
-      box-shadow: 0 10px 26px rgba(53, 89, 235, 0.18);
+      box-shadow: 0 10px 26px rgba(59, 91, 255, 0.16);
       transform: translateY(-1px);
     }
 
     .filter-btn:hover:not(.active) {
       background: rgba(255, 255, 255, 0.98);
-      border-color: rgba(136, 146, 171, 0.8);
+      border-color: rgba(136, 146, 171, 0.72);
     }
 
     main {
       margin-top: 12px;
-      display: grid;
-      gap: 16px;
+      column-count: 1;
+      column-gap: 16px;
+      width: 100%;
     }
 
     @media (min-width: 840px) {
       main {
-        grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.05fr);
-        gap: 18px;
-        align-items: flex-start;
+        column-count: 2;
+        column-gap: 18px;
       }
     }
 
-    .prompt-column { display: grid; gap: 16px; }
+    .prompt-column { display: contents; }
 
     /* Prompt Cards */
 
     .prompt-card {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(245, 247, 255, 0.97));
-      border-radius: var(--radius-lg);
-      padding: 14px 14px 12px;
-      box-shadow: var(--shadow-subtle);
-      border: 1px solid rgba(136, 146, 171, 0.55);
+      background: #ffffff;
+      background-image: none;
+      border-radius: 12px;
+      padding: 18px 18px 16px;
+      box-shadow: 0 4px 12px rgba(17, 24, 39, 0.08);
+      border: 1px solid #e5e7eb;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
       position: relative;
-      overflow: hidden;
+      break-inside: avoid;
+      margin: 0 0 16px;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+      background-clip: border-box;
+      isolation: isolate;
     }
 
-    .prompt-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 10% 15%, rgba(53, 89, 235, 0.09), transparent 60%),
-                  radial-gradient(circle at 85% 20%, rgba(124, 58, 237, 0.1), transparent 55%);
-      pointer-events: none;
+    .prompt-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(17, 24, 39, 0.12);
+      border-color: rgba(59, 91, 255, 0.2);
     }
 
-    .prompt-card::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 6px;
-      background: linear-gradient(90deg, rgba(53, 89, 235, 0.7), rgba(124, 58, 237, 0.65));
-      opacity: 0.85;
-    }
-
-    @media (min-width: 720px) { .prompt-card { padding: 16px 16px 13px; } }
+    @media (min-width: 720px) { .prompt-card { padding: 20px 20px 18px; } }
 
     .prompt-inner { position: relative; z-index: 1; }
 
-    .prompt-label-row {
+    .prompt-header-row {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 4px;
+      gap: 10px;
+      margin-bottom: 6px;
     }
 
     .subject-pill {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
+      gap: 6px;
       padding: 5px 10px;
-      border-radius: var(--radius-pill);
+      border-radius: 10px;
       font-size: 11px;
-      background: rgba(239, 246, 255, 0.9);
-      border: 1px solid rgba(53, 89, 235, 0.45);
-      color: #0f1f5a;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      background: #eff6ff;
+      border: 1px solid #dbeafe;
+      color: #1d4ed8;
+      box-shadow: none;
+      font-weight: 600;
     }
 
     .subject-pill span.emoji { font-size: 13px; }
 
-    .level {
-      font-size: 11px;
-      color: var(--muted);
-      opacity: 0.92;
-    }
-
     .prompt-title {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 700;
       margin: 0 0 4px;
       letter-spacing: 0.01em;
@@ -316,7 +313,7 @@
       font-size: 12.5px;
       color: var(--muted);
       margin-bottom: 8px;
-      line-height: 1.55;
+      line-height: 1.5;
     }
 
     pre.prompt-text {
@@ -324,16 +321,16 @@
       font-family: "DM Mono", "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", monospace;
       font-size: 11.5px;
       line-height: 1.55;
-      padding: 10px 11px;
-      border-radius: 14px;
-      background: #f8fafc;
+      padding: 12px 12px 11px;
+      border-radius: 10px;
+      background: #f3f4f6;
       border: 1px solid #e5e7eb;
       color: #0f172a;
-      max-height: 180px;
+      max-height: 200px;
       overflow: auto;
       white-space: pre-wrap;
       word-wrap: break-word;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      box-shadow: none;
     }
 
     .card-footer {
@@ -346,34 +343,35 @@
     }
 
     .copy-btn {
-      padding: 7px 12px;
+      padding: 9px 12px;
       font-size: 11.5px;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(53, 89, 235, 0.7);
-      background: linear-gradient(135deg, rgba(53, 89, 235, 0.16), rgba(124, 58, 237, 0.18));
-      color: #0f1f5a;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      background: #ffffff;
+      color: #1f2937;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 7px;
       transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-      box-shadow: 0 10px 26px rgba(53, 89, 235, 0.2);
+      box-shadow: 0 4px 10px rgba(17, 24, 39, 0.08);
+      font-weight: 600;
     }
 
     .copy-btn span.emoji { font-size: 13px; }
 
     .copy-btn:hover {
       transform: translateY(-1px);
-      box-shadow: 0 14px 32px rgba(17, 24, 39, 0.18);
-      border-color: #3559eb;
-      background: linear-gradient(135deg, rgba(53, 89, 235, 0.22), rgba(124, 58, 237, 0.22));
+      box-shadow: 0 8px 16px rgba(17, 24, 39, 0.12);
+      border-color: #9ca3af;
+      background: #f9fafb;
     }
 
     .copy-btn.copied {
-      background: linear-gradient(135deg, rgba(22, 163, 74, 0.2), rgba(74, 222, 128, 0.28));
-      border-color: rgba(22, 163, 74, 0.9);
-      color: #0f2f1f;
-      box-shadow: 0 12px 28px rgba(22, 163, 74, 0.2);
+      background: #e0f2f1;
+      border-color: #22c55e;
+      color: #065f46;
+      box-shadow: 0 8px 16px rgba(22, 163, 74, 0.18);
     }
 
     .hint { font-size: 11.5px; color: var(--muted); }
@@ -444,14 +442,13 @@
         <!-- Allgemein 1 -->
         <article class="prompt-card" data-category="allgemein">
           <div class="prompt-inner">
-            <div class="prompt-label-row">
+            <div class="prompt-header-row">
+              <h2 class="prompt-title">Thema erklären lassen</h2>
               <div class="subject-pill">
                 <span class="emoji">🧭</span>
                 Allgemeine Erklärung
               </div>
-              <div class="level">Geeignet für: S2 &amp; S3</div>
             </div>
-            <h2 class="prompt-title">Thema erklären lassen</h2>
             <p class="prompt-desc">
               Wenn du ein Thema nicht verstehst oder wiederholen möchtest.
             </p>
@@ -470,14 +467,13 @@ Frage mich am Ende 3 Verständnisfragen und warte auf meine Antworten.</pre>
         <!-- Allgemein 2 -->
         <article class="prompt-card" data-category="allgemein">
           <div class="prompt-inner">
-            <div class="prompt-label-row">
+            <div class="prompt-header-row">
+              <h2 class="prompt-title">Übungsaufgaben erstellen lassen</h2>
               <div class="subject-pill">
                 <span class="emoji">🧠</span>
                 Allgemein &amp; Training
               </div>
-              <div class="level">Geeignet für: S2 &amp; S3</div>
             </div>
-            <h2 class="prompt-title">Übungsaufgaben erstellen lassen</h2>
             <p class="prompt-desc">
               Wenn du zusätzliche Übungsaufgaben zu einem Thema brauchst.
             </p>
@@ -496,14 +492,13 @@ Wenn ich «Lösungen» schreibe, erkläre mir jede Aufgabe Schritt für Schritt 
         <!-- Deutsch 1 -->
         <article class="prompt-card" data-category="deutsch">
           <div class="prompt-inner">
-            <div class="prompt-label-row">
+            <div class="prompt-header-row">
+              <h2 class="prompt-title">Leseverständnis trainieren</h2>
               <div class="subject-pill">
                 <span class="emoji">📚</span>
                 Deutsch – Lesen
               </div>
-              <div class="level">Check S2/S3</div>
             </div>
-            <h2 class="prompt-title">Leseverständnis trainieren</h2>
             <p class="prompt-desc">
               Zum Üben von Lesetexten mit Verständnisfragen.
             </p>
@@ -522,14 +517,13 @@ Frage mich die Fragen nacheinander und warte immer auf meine Antwort, bevor du d
         <!-- Deutsch 2 -->
         <article class="prompt-card" data-category="deutsch">
           <div class="prompt-inner">
-            <div class="prompt-label-row">
+            <div class="prompt-header-row">
+              <h2 class="prompt-title">Grammatik klären &amp; üben</h2>
               <div class="subject-pill">
                 <span class="emoji">✏️</span>
                 Deutsch – Grammatik
               </div>
-              <div class="level">Check S2/S3</div>
             </div>
-            <h2 class="prompt-title">Grammatik klären &amp; üben</h2>
             <p class="prompt-desc">
               Wenn du bei einem Grammatikthema unsicher bist.
             </p>
@@ -549,14 +543,13 @@ Wenn ich dir meine Lösungen schicke, korrigiere sie und erkläre mir in einfach
         <!-- Mathe 1 -->
         <article class="prompt-card" data-category="mathe">
           <div class="prompt-inner">
-            <div class="prompt-label-row">
+            <div class="prompt-header-row">
+              <h2 class="prompt-title">Schritt-für-Schritt-Rechnungen</h2>
               <div class="subject-pill">
                 <span class="emoji">➗</span>
                 Mathematik
               </div>
-              <div class="level">Check S2</div>
             </div>
-            <h2 class="prompt-title">Schritt-für-Schritt-Rechnungen</h2>
             <p class="prompt-desc">
               Wenn du den Lösungsweg genau sehen möchtest.
             </p>
@@ -575,14 +568,13 @@ Schreibe jeden Rechenschritt in einer neuen Zeile und erkläre kurz, was du mach
         <!-- Mathe 2 -->
         <article class="prompt-card" data-category="mathe">
           <div class="prompt-inner">
-            <div class="prompt-label-row">
+            <div class="prompt-header-row">
+              <h2 class="prompt-title">Test-Simulation Mathe</h2>
               <div class="subject-pill">
                 <span class="emoji">📐</span>
                 Mathematik – Training
               </div>
-              <div class="level">Check S2/S3</div>
             </div>
-            <h2 class="prompt-title">Test-Simulation Mathe</h2>
             <p class="prompt-desc">
               Eine kleine Mathe-Prüfung zum Üben.
             </p>
@@ -604,19 +596,18 @@ Wenn ich «Korrigieren» schreibe, zeige die Lösungen mit kurzer Erklärung.</p
         <!-- Englisch 1 -->
         <article class="prompt-card" data-category="englisch">
           <div class="prompt-inner">
-            <div class="prompt-label-row">
+            <div class="prompt-header-row">
+              <h2 class="prompt-title">Writing-Aufgaben üben</h2>
               <div class="subject-pill">
                 <span class="emoji">🇬🇧</span>
                 Englisch – Schreiben
               </div>
-              <div class="level">Check S2/S3</div>
             </div>
-            <h2 class="prompt-title">Writing-Aufgaben üben</h2>
             <p class="prompt-desc">
               Für kurze Textproduktion auf Englisch.
             </p>
             <pre class="prompt-text">I am a student in secondary school in Switzerland (about 14–16 years old). 
-Give me one writing task on level A2/B1 (Check S2/S3 style). 
+Give me one writing task on level A2/B1 (Sek style). 
 Only show me the task first. 
 After I send you my text (about 80–120 words), correct it and explain 5 typical mistakes I made in simple German.</pre>
             <div class="card-footer">
@@ -634,14 +625,13 @@ After I send you my text (about 80–120 words), correct it and explain 5 typica
         <!-- Englisch 2 -->
         <article class="prompt-card" data-category="englisch">
           <div class="prompt-inner">
-            <div class="prompt-label-row">
+            <div class="prompt-header-row">
+              <h2 class="prompt-title">Reading / Listening simulieren</h2>
               <div class="subject-pill">
                 <span class="emoji">🎧</span>
                 Englisch – Verständnis
               </div>
-              <div class="level">Check S2/S3</div>
             </div>
-            <h2 class="prompt-title">Reading / Listening simulieren</h2>
             <p class="prompt-desc">
               Für Text- oder Hörverständnis ähnlich wie im Check.
             </p>
@@ -661,21 +651,20 @@ After all questions, show me the correct answers and explain my mistakes in simp
         <!-- Französisch 1 -->
         <article class="prompt-card" data-category="franz">
           <div class="prompt-inner">
-            <div class="prompt-label-row">
+            <div class="prompt-header-row">
+              <h2 class="prompt-title">Typische Alltagssätze</h2>
               <div class="subject-pill">
                 <span class="emoji">🇫🇷</span>
                 Französisch – Alltag
               </div>
-              <div class="level">Check S2</div>
             </div>
-            <h2 class="prompt-title">Typische Alltagssätze</h2>
             <p class="prompt-desc">
               Für Situationen wie Restaurant, Einkaufen, Weg fragen.
             </p>
             <pre class="prompt-text">Ich lerne Französisch in der Sekundarschule in der Schweiz. 
 Erstelle mir 12 wichtige Beispielsätze auf Französisch zum Thema &lt;THEMA&gt; (z.B. «im Restaurant», «im Laden», «Weg beschreiben»). 
 Schreibe jeden Satz zuerst auf Französisch und darunter die deutsche Übersetzung. 
-Nutze einfache Sätze, passend für Check S2/S3.</pre>
+Nutze einfache Sätze, passend für die Sek.</pre>
             <div class="card-footer">
               <button class="copy-btn" onclick="copyPrompt(this)">
                 <span class="emoji">📋</span> Prompt kopieren
@@ -688,18 +677,17 @@ Nutze einfache Sätze, passend für Check S2/S3.</pre>
         <!-- Französisch 2 -->
         <article class="prompt-card" data-category="franz">
           <div class="prompt-inner">
-            <div class="prompt-label-row">
+            <div class="prompt-header-row">
+              <h2 class="prompt-title">Kurzen Text auf Französisch üben</h2>
               <div class="subject-pill">
                 <span class="emoji">🗣️</span>
                 Französisch – Produktion
               </div>
-              <div class="level">Check S2/S3</div>
             </div>
-            <h2 class="prompt-title">Kurzen Text auf Französisch üben</h2>
             <p class="prompt-desc">
               Wie beim schriftlichen Teil im Check.
             </p>
-            <pre class="prompt-text">Gib mir ein Schreibthema auf Französisch auf Sek-Niveau (Check S2/S3), z.B. eine kurze E-Mail oder eine Beschreibung meines Wochenendes. 
+            <pre class="prompt-text">Gib mir ein Schreibthema auf Französisch auf Sek-Niveau, z.B. eine kurze E-Mail oder eine Beschreibung meines Wochenendes. 
 Das Thema soll so sein, dass ich etwa 70–100 Wörter schreibe. 
 Zeig mir zuerst nur das Thema. 
 Wenn ich dir meinen französischen Text sende, korrigiere ihn, gib mir die korrekte Version und erkläre mir 3 typische Fehler auf Deutsch.</pre>
@@ -715,14 +703,13 @@ Wenn ich dir meinen französischen Text sende, korrigiere ihn, gib mir die korre
         <!-- N&T 1 -->
         <article class="prompt-card" data-category="nt">
           <div class="prompt-inner">
-            <div class="prompt-label-row">
+            <div class="prompt-header-row">
+              <h2 class="prompt-title">Begriffe mit Alltag &amp; Fachsprache</h2>
               <div class="subject-pill">
                 <span class="emoji">🧪</span>
                 Natur &amp; Technik
               </div>
-              <div class="level">Check S2</div>
             </div>
-            <h2 class="prompt-title">Begriffe mit Alltag &amp; Fachsprache</h2>
             <p class="prompt-desc">
               Ideal für Themen wie Energie, Ökologie, Körper, Physik.
             </p>
@@ -742,14 +729,13 @@ Wenn ich dir meinen französischen Text sende, korrigiere ihn, gib mir die korre
         <!-- N&T 2 -->
         <article class="prompt-card" data-category="nt">
           <div class="prompt-inner">
-            <div class="prompt-label-row">
+            <div class="prompt-header-row">
+              <h2 class="prompt-title">Mini-Test Natur &amp; Technik</h2>
               <div class="subject-pill">
                 <span class="emoji">🔬</span>
                 Natur &amp; Technik – Training
               </div>
-              <div class="level">Check S3</div>
             </div>
-            <h2 class="prompt-title">Mini-Test Natur &amp; Technik</h2>
             <p class="prompt-desc">
               Um Check-ähnliche Aufgaben zu simulieren.
             </p>
@@ -772,14 +758,13 @@ Wenn ich «Lösungen» schreibe, erkläre alle Antworten kurz und klar.</pre>
         <!-- SOS 1 -->
         <article class="prompt-card" data-category="sos">
           <div class="prompt-inner">
-            <div class="prompt-label-row">
+            <div class="prompt-header-row">
+              <h2 class="prompt-title">Thema komplett verloren?</h2>
               <div class="subject-pill">
                 <span class="emoji">🚨</span>
                 SOS – Schnellhilfe
               </div>
-              <div class="level">Wenn gar nichts mehr geht</div>
             </div>
-            <h2 class="prompt-title">Thema komplett verloren?</h2>
             <p class="prompt-desc">
               Wenn du ein Thema wirklich gar nicht mehr checkst.
             </p>
@@ -800,14 +785,13 @@ Bitte:
         <!-- SOS 2 -->
         <article class="prompt-card" data-category="sos">
           <div class="prompt-inner">
-            <div class="prompt-label-row">
+            <div class="prompt-header-row">
+              <h2 class="prompt-title">Fehler verstehen statt nur korrigieren</h2>
               <div class="subject-pill">
                 <span class="emoji">🧩</span>
                 SOS – Fehleranalyse
               </div>
-              <div class="level">Alle Fächer</div>
             </div>
-            <h2 class="prompt-title">Fehler verstehen statt nur korrigieren</h2>
             <p class="prompt-desc">
               Wenn du Lösungen hast, aber nicht verstehst, was falsch ist.
             </p>
@@ -828,14 +812,13 @@ Bitte:
         <!-- FAQ -->
         <article class="prompt-card" data-category="faq">
           <div class="prompt-inner">
-            <div class="prompt-label-row">
+            <div class="prompt-header-row">
+              <h2 class="prompt-title">Worum es hier geht</h2>
               <div class="subject-pill">
                 <span class="emoji">❓</span>
                 FAQ
               </div>
-              <div class="level">Zur Orientierung</div>
             </div>
-            <h2 class="prompt-title">Worum es hier geht</h2>
             <p class="prompt-desc">
               Diese Seite hilft dir, mit einer KI (z.&nbsp;B. ChatGPT) für den Check S2 / Check S3 zu üben.
               Nutze die Prompts für Erklärungen, Übungen und zum Kontrollieren deiner Lösungen.
@@ -853,7 +836,7 @@ Bitte:
 
     <footer>
       Diese Seite ist eine <span>Lernhilfe</span> – nicht erlaubt im echten Check. 
-      Denk mit, frag nach und nutze KI als Unterstützung, nicht als Abkürzung.
+      Denke kritisch mit, frag nach und nutze KI als Unterstützung, nicht als Abkürzung.
     </footer>
   </div>
 
