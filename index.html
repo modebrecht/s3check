@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>KI-Lernhilfe für Check S2 / S3</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+    :root {
+      --bg: #f4f6fb;
+      --bg-accent: #e1e8ff;
+      --card: #ffffff;
+      --accent: #3559eb;
+      --accent-2: #7c3aed;
+      --text: #0f172a;
+      --muted: #5f6b7c;
+      --danger: #dc2626;
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 22px 60px rgba(17, 24, 39, 0.16);
+      --shadow-subtle: 0 10px 30px rgba(17, 24, 39, 0.14);
+      --transition-fast: 150ms ease-out;
+      --transition-med: 220ms ease;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
+      background: radial-gradient(circle at 10% 15%, rgba(53, 89, 235, 0.14), transparent 26%),
+                  radial-gradient(circle at 80% 10%, rgba(124, 58, 237, 0.12), transparent 25%),
+                  linear-gradient(180deg, #f8fbff 0%, #f3f6fd 45%, #edf0f7 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1160px;
+      padding: 14px 14px 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page::before,
+    .page::after {
+      content: "";
+      position: absolute;
+      filter: blur(60px);
+      opacity: 0.75;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .page::before {
+      width: 240px;
+      height: 240px;
+      background: rgba(53, 89, 235, 0.12);
+      top: 40px;
+      right: -60px;
+    }
+
+    .page::after {
+      width: 200px;
+      height: 200px;
+      background: rgba(124, 58, 237, 0.1);
+      bottom: 40px;
+      left: -40px;
+    }
+
+    header {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(240, 244, 255, 0.95)),
+                  radial-gradient(circle at top left, rgba(53, 89, 235, 0.1), transparent 55%);
+      border-radius: 20px;
+      padding: 12px 12px 10px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(136, 146, 171, 0.42);
+      position: sticky;
+      top: 4px;
+      z-index: 20;
+      backdrop-filter: blur(8px);
+    }
+
+    @media (min-width: 720px) {
+      header { padding: 14px 16px 12px; }
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 9px;
+      border-radius: var(--radius-pill);
+      background: linear-gradient(135deg, rgba(53, 89, 235, 0.12), rgba(124, 58, 237, 0.12));
+      border: 1px solid rgba(53, 89, 235, 0.24);
+      font-size: 10px;
+      color: #0f1f5a;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      font-weight: 700;
+      white-space: nowrap;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+
+    .pill span.emoji { font-size: 13px; }
+
+    h1 {
+      font-size: 20px;
+      margin: 0 0 4px;
+      letter-spacing: 0.01em;
+    }
+
+    @media (min-width: 720px) { h1 { font-size: 24px; } }
+
+    .subtitle {
+      font-size: 12.5px;
+      color: var(--muted);
+      max-width: 680px;
+      line-height: 1.45;
+      margin-bottom: 2px;
+    }
+
+    .rules {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 11.5px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.38);
+      border-radius: 12px;
+      padding: 8px 10px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+
+    .rules div {
+      background: rgba(241, 245, 255, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      border-radius: 10px;
+      padding: 6px 8px;
+      line-height: 1.35;
+      flex: 1 1 220px;
+      min-width: 180px;
+    }
+
+    .rules strong { color: #d97706; font-weight: 700; }
+    .rules .danger { color: var(--danger); font-weight: 700; }
+
+    .chip-row {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      padding: 5px 10px;
+      font-size: 11px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(136, 146, 171, 0.55);
+      color: var(--muted);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(241, 245, 255, 0.9));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+    }
+
+    /* Filter Buttons */
+
+    .filter-bar {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 2px 0 6px;
+      scrollbar-width: thin;
+    }
+
+    .filter-btn {
+      flex: 0 0 auto;
+      padding: 9px 14px;
+      font-size: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(136, 146, 171, 0.55);
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+      white-space: nowrap;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+    }
+
+    .filter-btn span { font-size: 14px; }
+
+    .filter-btn.active {
+      background: linear-gradient(135deg, rgba(53, 89, 235, 0.14), rgba(124, 58, 237, 0.18));
+      border-color: rgba(53, 89, 235, 0.6);
+      color: #0f1f5a;
+      box-shadow: 0 10px 26px rgba(53, 89, 235, 0.18);
+      transform: translateY(-1px);
+    }
+
+    .filter-btn:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.98);
+      border-color: rgba(136, 146, 171, 0.8);
+    }
+
+    main {
+      margin-top: 12px;
+      display: grid;
+      gap: 16px;
+    }
+
+    @media (min-width: 840px) {
+      main {
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.05fr);
+        gap: 18px;
+        align-items: flex-start;
+      }
+    }
+
+    .prompt-column { display: grid; gap: 16px; }
+
+    /* Prompt Cards */
+
+    .prompt-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(245, 247, 255, 0.97));
+      border-radius: var(--radius-lg);
+      padding: 14px 14px 12px;
+      box-shadow: var(--shadow-subtle);
+      border: 1px solid rgba(136, 146, 171, 0.55);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .prompt-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 10% 15%, rgba(53, 89, 235, 0.09), transparent 60%),
+                  radial-gradient(circle at 85% 20%, rgba(124, 58, 237, 0.1), transparent 55%);
+      pointer-events: none;
+    }
+
+    .prompt-card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, rgba(53, 89, 235, 0.7), rgba(124, 58, 237, 0.65));
+      opacity: 0.85;
+    }
+
+    @media (min-width: 720px) { .prompt-card { padding: 16px 16px 13px; } }
+
+    .prompt-inner { position: relative; z-index: 1; }
+
+    .prompt-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .subject-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      background: rgba(239, 246, 255, 0.9);
+      border: 1px solid rgba(53, 89, 235, 0.45);
+      color: #0f1f5a;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+
+    .subject-pill span.emoji { font-size: 13px; }
+
+    .level {
+      font-size: 11px;
+      color: var(--muted);
+      opacity: 0.92;
+    }
+
+    .prompt-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin: 0 0 4px;
+      letter-spacing: 0.01em;
+      color: #0f172a;
+    }
+
+    .prompt-desc {
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-bottom: 8px;
+      line-height: 1.55;
+    }
+
+    pre.prompt-text {
+      margin: 0;
+      font-family: "DM Mono", "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 11.5px;
+      line-height: 1.55;
+      padding: 10px 11px;
+      border-radius: 14px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      color: #0f172a;
+      max-height: 180px;
+      overflow: auto;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+
+    .card-footer {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .copy-btn {
+      padding: 7px 12px;
+      font-size: 11.5px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(53, 89, 235, 0.7);
+      background: linear-gradient(135deg, rgba(53, 89, 235, 0.16), rgba(124, 58, 237, 0.18));
+      color: #0f1f5a;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+      box-shadow: 0 10px 26px rgba(53, 89, 235, 0.2);
+    }
+
+    .copy-btn span.emoji { font-size: 13px; }
+
+    .copy-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 32px rgba(17, 24, 39, 0.18);
+      border-color: #3559eb;
+      background: linear-gradient(135deg, rgba(53, 89, 235, 0.22), rgba(124, 58, 237, 0.22));
+    }
+
+    .copy-btn.copied {
+      background: linear-gradient(135deg, rgba(22, 163, 74, 0.2), rgba(74, 222, 128, 0.28));
+      border-color: rgba(22, 163, 74, 0.9);
+      color: #0f2f1f;
+      box-shadow: 0 12px 28px rgba(22, 163, 74, 0.2);
+    }
+
+    .hint { font-size: 11.5px; color: var(--muted); }
+    .hint strong { color: #111827; }
+
+    footer {
+      margin-top: 28px;
+      font-size: 11.5px;
+      color: var(--muted);
+      text-align: center;
+      opacity: 0.9;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(136, 146, 171, 0.35);
+      border-radius: 14px;
+      padding: 12px 14px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+
+    footer span { color: var(--accent); font-weight: 600; }
+
+    @media (max-width: 480px) {
+      header { border-radius: 22px; }
+      .prompt-card { border-radius: 16px; }
+      .filter-btn { padding: 8px 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="header-top">
+      </div>
+
+      <div class="filter-bar" id="filterBar">
+        <button class="filter-btn active" data-filter="alle">
+          <span>✨</span>Alle
+        </button>
+        <button class="filter-btn" data-filter="allgemein">
+          <span>🧭</span>Allgemein
+        </button>
+        <button class="filter-btn" data-filter="deutsch">
+          <span>📚</span>Deutsch
+        </button>
+        <button class="filter-btn" data-filter="mathe">
+          <span>➗</span>Mathematik
+        </button>
+        <button class="filter-btn" data-filter="englisch">
+          <span>🇬🇧</span>Englisch
+        </button>
+        <button class="filter-btn" data-filter="franz">
+          <span>🇫🇷</span>Französisch
+        </button>
+        <button class="filter-btn" data-filter="nt">
+          <span>🧪</span>N&amp;T
+        </button>
+        <button class="filter-btn" data-filter="sos">
+          <span>🚨</span>SOS
+        </button>
+        <button class="filter-btn" data-filter="faq">
+          <span>❓</span>FAQ
+        </button>
+      </div>
+    </header>
+
+    <main id="promptGrid">
+      <!-- Spalte 1 -->
+      <div class="prompt-column">
+        <!-- Allgemein 1 -->
+        <article class="prompt-card" data-category="allgemein">
+          <div class="prompt-inner">
+            <div class="prompt-label-row">
+              <div class="subject-pill">
+                <span class="emoji">🧭</span>
+                Allgemeine Erklärung
+              </div>
+              <div class="level">Geeignet für: S2 &amp; S3</div>
+            </div>
+            <h2 class="prompt-title">Thema erklären lassen</h2>
+            <p class="prompt-desc">
+              Wenn du ein Thema nicht verstehst oder wiederholen möchtest.
+            </p>
+            <pre class="prompt-text">Ich bin in der Sekundarschule in der Schweiz (2. oder 3. Sek). Erkläre mir das Thema &lt;THEMA EINSETZEN&gt; so, dass es ein 14-jähriger versteht. 
+Nutze einfache Sprache, alltagsnahe Beispiele und erkläre Schritt für Schritt. 
+Frage mich am Ende 3 Verständnisfragen und warte auf meine Antworten.</pre>
+            <div class="card-footer">
+              <button class="copy-btn" onclick="copyPrompt(this)">
+                <span class="emoji">📋</span> Prompt kopieren
+              </button>
+              <div class="hint"><strong>Tipp:</strong> Ersetze &lt;THEMA EINSETZEN&gt; durch deinen Stoff (z.B. «Bruchrechnen»).</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Allgemein 2 -->
+        <article class="prompt-card" data-category="allgemein">
+          <div class="prompt-inner">
+            <div class="prompt-label-row">
+              <div class="subject-pill">
+                <span class="emoji">🧠</span>
+                Allgemein &amp; Training
+              </div>
+              <div class="level">Geeignet für: S2 &amp; S3</div>
+            </div>
+            <h2 class="prompt-title">Übungsaufgaben erstellen lassen</h2>
+            <p class="prompt-desc">
+              Wenn du zusätzliche Übungsaufgaben zu einem Thema brauchst.
+            </p>
+            <pre class="prompt-text">Erstelle mir bitte 8 Übungsaufgaben zum Thema &lt;THEMA EINSETZEN&gt; auf Sek-Niveau (Schweiz). 
+Gib mir zuerst nur die Aufgaben, ohne Lösungen. 
+Wenn ich «Lösungen» schreibe, erkläre mir jede Aufgabe Schritt für Schritt und markiere typische Fehler, die Schüler machen.</pre>
+            <div class="card-footer">
+              <button class="copy-btn" onclick="copyPrompt(this)">
+                <span class="emoji">📋</span> Prompt kopieren
+              </button>
+              <div class="hint">Nutze das z.B. für Mathe, Grammatik oder N&amp;T-Begriffe.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Deutsch 1 -->
+        <article class="prompt-card" data-category="deutsch">
+          <div class="prompt-inner">
+            <div class="prompt-label-row">
+              <div class="subject-pill">
+                <span class="emoji">📚</span>
+                Deutsch – Lesen
+              </div>
+              <div class="level">Check S2/S3</div>
+            </div>
+            <h2 class="prompt-title">Leseverständnis trainieren</h2>
+            <p class="prompt-desc">
+              Zum Üben von Lesetexten mit Verständnisfragen.
+            </p>
+            <pre class="prompt-text">Erstelle einen deutschen Sachtext auf Sek-Niveau (ca. 180–220 Wörter) zu einem Alltagsthema. 
+Stelle mir danach 6 Verständnisfragen zum Text (gemischt: offene Fragen und Multiple Choice). 
+Frage mich die Fragen nacheinander und warte immer auf meine Antwort, bevor du die nächste Frage stellst.</pre>
+            <div class="card-footer">
+              <button class="copy-btn" onclick="copyPrompt(this)">
+                <span class="emoji">📋</span> Prompt kopieren
+              </button>
+              <div class="hint">Zielt auf Lesen &amp; Textverständnis.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Deutsch 2 -->
+        <article class="prompt-card" data-category="deutsch">
+          <div class="prompt-inner">
+            <div class="prompt-label-row">
+              <div class="subject-pill">
+                <span class="emoji">✏️</span>
+                Deutsch – Grammatik
+              </div>
+              <div class="level">Check S2/S3</div>
+            </div>
+            <h2 class="prompt-title">Grammatik klären &amp; üben</h2>
+            <p class="prompt-desc">
+              Wenn du bei einem Grammatikthema unsicher bist.
+            </p>
+            <pre class="prompt-text">Erkläre mir das Grammatikthema &lt;GRAMMATIKTHEMA&gt; (Sekundarstufe Schweiz). 
+Gib mir zuerst eine einfache Erklärung mit 2 Beispielsätzen. 
+Danach gib mir 6 kurze Übungsaufgaben dazu. 
+Wenn ich dir meine Lösungen schicke, korrigiere sie und erkläre mir in einfachen Worten meine Fehler.</pre>
+            <div class="card-footer">
+              <button class="copy-btn" onclick="copyPrompt(this)">
+                <span class="emoji">📋</span> Prompt kopieren
+              </button>
+              <div class="hint">Beispiel: «Zeiten im Deutschen», «Haupt- und Nebensätze».</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Mathe 1 -->
+        <article class="prompt-card" data-category="mathe">
+          <div class="prompt-inner">
+            <div class="prompt-label-row">
+              <div class="subject-pill">
+                <span class="emoji">➗</span>
+                Mathematik
+              </div>
+              <div class="level">Check S2</div>
+            </div>
+            <h2 class="prompt-title">Schritt-für-Schritt-Rechnungen</h2>
+            <p class="prompt-desc">
+              Wenn du den Lösungsweg genau sehen möchtest.
+            </p>
+            <pre class="prompt-text">Erkläre mir das Thema &lt;MATHE-THEMA&gt; auf Sek-Niveau (z.B. Bruchrechnen, Lineare Gleichungen). 
+Zeige mir 5 Beispielaufgaben mit ausführlicher Schritt-für-Schritt-Lösung. 
+Schreibe jeden Rechenschritt in einer neuen Zeile und erkläre kurz, was du machst.</pre>
+            <div class="card-footer">
+              <button class="copy-btn" onclick="copyPrompt(this)">
+                <span class="emoji">📋</span> Prompt kopieren
+              </button>
+              <div class="hint">Wichtig: Schau dir wirklich jeden Schritt an, nicht nur das Resultat.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Mathe 2 -->
+        <article class="prompt-card" data-category="mathe">
+          <div class="prompt-inner">
+            <div class="prompt-label-row">
+              <div class="subject-pill">
+                <span class="emoji">📐</span>
+                Mathematik – Training
+              </div>
+              <div class="level">Check S2/S3</div>
+            </div>
+            <h2 class="prompt-title">Test-Simulation Mathe</h2>
+            <p class="prompt-desc">
+              Eine kleine Mathe-Prüfung zum Üben.
+            </p>
+            <pre class="prompt-text">Erstelle eine kleine Mathe-Prüfung mit 6 Aufgaben auf Sek-Niveau (Schweiz) zum Thema &lt;MATHE-THEMA&gt;, gemischt: 
+– 2 einfache Einstiegsaufgaben 
+– 3 mittelschwere Aufgaben 
+– 1 schwierigere Aufgabe (Transfer). 
+Gib mir nur die Aufgaben. 
+Wenn ich «Korrigieren» schreibe, zeige die Lösungen mit kurzer Erklärung.</pre>
+            <div class="card-footer">
+              <button class="copy-btn" onclick="copyPrompt(this)">
+                <span class="emoji">📋</span> Prompt kopieren
+              </button>
+              <div class="hint">Gut, um Zeitmanagement &amp; Schwierigkeitsgrad zu spüren.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Englisch 1 -->
+        <article class="prompt-card" data-category="englisch">
+          <div class="prompt-inner">
+            <div class="prompt-label-row">
+              <div class="subject-pill">
+                <span class="emoji">🇬🇧</span>
+                Englisch – Schreiben
+              </div>
+              <div class="level">Check S2/S3</div>
+            </div>
+            <h2 class="prompt-title">Writing-Aufgaben üben</h2>
+            <p class="prompt-desc">
+              Für kurze Textproduktion auf Englisch.
+            </p>
+            <pre class="prompt-text">I am a student in secondary school in Switzerland (about 14–16 years old). 
+Give me one writing task on level A2/B1 (Check S2/S3 style). 
+Only show me the task first. 
+After I send you my text (about 80–120 words), correct it and explain 5 typical mistakes I made in simple German.</pre>
+            <div class="card-footer">
+              <button class="copy-btn" onclick="copyPrompt(this)">
+                <span class="emoji">📋</span> Prompt kopieren
+              </button>
+              <div class="hint">Du übst Schreiben &amp; bekommst direkt Feedback.</div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Spalte 2 -->
+      <div class="prompt-column">
+        <!-- Englisch 2 -->
+        <article class="prompt-card" data-category="englisch">
+          <div class="prompt-inner">
+            <div class="prompt-label-row">
+              <div class="subject-pill">
+                <span class="emoji">🎧</span>
+                Englisch – Verständnis
+              </div>
+              <div class="level">Check S2/S3</div>
+            </div>
+            <h2 class="prompt-title">Reading / Listening simulieren</h2>
+            <p class="prompt-desc">
+              Für Text- oder Hörverständnis ähnlich wie im Check.
+            </p>
+            <pre class="prompt-text">Create a short English text suitable for a Swiss secondary school student (A2/B1 level), about 150–200 words. 
+Then ask me 6 questions about the text (mix of multiple choice and short answers). 
+Ask the questions one by one and wait for my answer each time. 
+After all questions, show me the correct answers and explain my mistakes in simple German.</pre>
+            <div class="card-footer">
+              <button class="copy-btn" onclick="copyPrompt(this)">
+                <span class="emoji">📋</span> Prompt kopieren
+              </button>
+              <div class="hint">Du kannst hinzufügen: “Pretend it is a listening text and mark important words.”</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Französisch 1 -->
+        <article class="prompt-card" data-category="franz">
+          <div class="prompt-inner">
+            <div class="prompt-label-row">
+              <div class="subject-pill">
+                <span class="emoji">🇫🇷</span>
+                Französisch – Alltag
+              </div>
+              <div class="level">Check S2</div>
+            </div>
+            <h2 class="prompt-title">Typische Alltagssätze</h2>
+            <p class="prompt-desc">
+              Für Situationen wie Restaurant, Einkaufen, Weg fragen.
+            </p>
+            <pre class="prompt-text">Ich lerne Französisch in der Sekundarschule in der Schweiz. 
+Erstelle mir 12 wichtige Beispielsätze auf Französisch zum Thema &lt;THEMA&gt; (z.B. «im Restaurant», «im Laden», «Weg beschreiben»). 
+Schreibe jeden Satz zuerst auf Französisch und darunter die deutsche Übersetzung. 
+Nutze einfache Sätze, passend für Check S2/S3.</pre>
+            <div class="card-footer">
+              <button class="copy-btn" onclick="copyPrompt(this)">
+                <span class="emoji">📋</span> Prompt kopieren
+              </button>
+              <div class="hint">Perfekt zum Karteikarten-Basteln.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Französisch 2 -->
+        <article class="prompt-card" data-category="franz">
+          <div class="prompt-inner">
+            <div class="prompt-label-row">
+              <div class="subject-pill">
+                <span class="emoji">🗣️</span>
+                Französisch – Produktion
+              </div>
+              <div class="level">Check S2/S3</div>
+            </div>
+            <h2 class="prompt-title">Kurzen Text auf Französisch üben</h2>
+            <p class="prompt-desc">
+              Wie beim schriftlichen Teil im Check.
+            </p>
+            <pre class="prompt-text">Gib mir ein Schreibthema auf Französisch auf Sek-Niveau (Check S2/S3), z.B. eine kurze E-Mail oder eine Beschreibung meines Wochenendes. 
+Das Thema soll so sein, dass ich etwa 70–100 Wörter schreibe. 
+Zeig mir zuerst nur das Thema. 
+Wenn ich dir meinen französischen Text sende, korrigiere ihn, gib mir die korrekte Version und erkläre mir 3 typische Fehler auf Deutsch.</pre>
+            <div class="card-footer">
+              <button class="copy-btn" onclick="copyPrompt(this)">
+                <span class="emoji">📋</span> Prompt kopieren
+              </button>
+              <div class="hint">Du trainierst Inhalt &amp; Sprache gleichzeitig.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- N&T 1 -->
+        <article class="prompt-card" data-category="nt">
+          <div class="prompt-inner">
+            <div class="prompt-label-row">
+              <div class="subject-pill">
+                <span class="emoji">🧪</span>
+                Natur &amp; Technik
+              </div>
+              <div class="level">Check S2</div>
+            </div>
+            <h2 class="prompt-title">Begriffe mit Alltag &amp; Fachsprache</h2>
+            <p class="prompt-desc">
+              Ideal für Themen wie Energie, Ökologie, Körper, Physik.
+            </p>
+            <pre class="prompt-text">Erkläre mir das Thema &lt;N&amp;T-THEMA&gt; auf Sek-Niveau (z.B. Fotosynthese, Stromkreis, Energieformen). 
+1. Erkläre es zuerst in Alltagssprache, so dass ein 13-jähriger es versteht. 
+2. Erkläre es danach mit den wichtigsten Fachbegriffen und nenne diese Begriffe fett. 
+3. Stelle mir zum Schluss 4 Verständnisfragen (gemischt: leicht und mittelschwer).</pre>
+            <div class="card-footer">
+              <button class="copy-btn" onclick="copyPrompt(this)">
+                <span class="emoji">📋</span> Prompt kopieren
+              </button>
+              <div class="hint">Gut, um Fachsprache für den Check aufzubauen.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- N&T 2 -->
+        <article class="prompt-card" data-category="nt">
+          <div class="prompt-inner">
+            <div class="prompt-label-row">
+              <div class="subject-pill">
+                <span class="emoji">🔬</span>
+                Natur &amp; Technik – Training
+              </div>
+              <div class="level">Check S3</div>
+            </div>
+            <h2 class="prompt-title">Mini-Test Natur &amp; Technik</h2>
+            <p class="prompt-desc">
+              Um Check-ähnliche Aufgaben zu simulieren.
+            </p>
+            <pre class="prompt-text">Erstelle einen kleinen Natur-&amp;Technik-Test (Check S3-Niveau) zu den Themen &lt;THEMEN AUFLISTEN&gt;. 
+Der Test soll 6 Aufgaben enthalten, gemischt: 
+– Begriffe erklären 
+– Zusammenhänge beschreiben 
+– eine Grafik oder Tabelle interpretieren (bitte beschreiben, wenn du kein Bild zeigen kannst). 
+Gib mir zuerst nur die Aufgaben. 
+Wenn ich «Lösungen» schreibe, erkläre alle Antworten kurz und klar.</pre>
+            <div class="card-footer">
+              <button class="copy-btn" onclick="copyPrompt(this)">
+                <span class="emoji">📋</span> Prompt kopieren
+              </button>
+              <div class="hint">Gut als Vorbereitung auf komplexere Check-Aufgaben.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- SOS 1 -->
+        <article class="prompt-card" data-category="sos">
+          <div class="prompt-inner">
+            <div class="prompt-label-row">
+              <div class="subject-pill">
+                <span class="emoji">🚨</span>
+                SOS – Schnellhilfe
+              </div>
+              <div class="level">Wenn gar nichts mehr geht</div>
+            </div>
+            <h2 class="prompt-title">Thema komplett verloren?</h2>
+            <p class="prompt-desc">
+              Wenn du ein Thema wirklich gar nicht mehr checkst.
+            </p>
+            <pre class="prompt-text">Ich habe morgen einen Test / Check zum Thema &lt;THEMA&gt; und verstehe fast nichts mehr. 
+Bitte: 
+1. Nenne mir die 5–7 wichtigsten Dinge, die ich zu diesem Thema können sollte (Stichworte). 
+2. Erkläre mir jeden Punkt in einfachen Worten mit einem Beispiel. 
+3. Gib mir am Schluss 4 kurze Übungsaufgaben und korrigiere meine Antworten.</pre>
+            <div class="card-footer">
+              <button class="copy-btn" onclick="copyPrompt(this)">
+                <span class="emoji">📋</span> Prompt kopieren
+              </button>
+              <div class="hint">Nutze das nicht erst 5 Minuten vor dem Test 😉</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- SOS 2 -->
+        <article class="prompt-card" data-category="sos">
+          <div class="prompt-inner">
+            <div class="prompt-label-row">
+              <div class="subject-pill">
+                <span class="emoji">🧩</span>
+                SOS – Fehleranalyse
+              </div>
+              <div class="level">Alle Fächer</div>
+            </div>
+            <h2 class="prompt-title">Fehler verstehen statt nur korrigieren</h2>
+            <p class="prompt-desc">
+              Wenn du Lösungen hast, aber nicht verstehst, was falsch ist.
+            </p>
+            <pre class="prompt-text">Ich habe hier eine Lösung zu einer Aufgabe im Fach &lt;FACH&gt; und vermute, dass sie nicht ganz korrekt ist. 
+Bitte: 
+1. Vergleiche meine Lösung mit einer korrekten Lösung. 
+2. Erkläre mir in einfachen Worten Schritt für Schritt, wo meine Fehler liegen. 
+3. Gib mir eine ähnliche Übungsaufgabe, damit ich es direkt nochmals probieren kann.</pre>
+            <div class="card-footer">
+              <button class="copy-btn" onclick="copyPrompt(this)">
+                <span class="emoji">📋</span> Prompt kopieren
+              </button>
+              <div class="hint">Perfekt, um typische Denkfehler aufzudecken.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- FAQ -->
+        <article class="prompt-card" data-category="faq">
+          <div class="prompt-inner">
+            <div class="prompt-label-row">
+              <div class="subject-pill">
+                <span class="emoji">❓</span>
+                FAQ
+              </div>
+              <div class="level">Zur Orientierung</div>
+            </div>
+            <h2 class="prompt-title">Worum es hier geht</h2>
+            <p class="prompt-desc">
+              Diese Seite hilft dir, mit einer KI (z.&nbsp;B. ChatGPT) für den Check S2 / Check S3 zu üben.
+              Nutze die Prompts für Erklärungen, Übungen und zum Kontrollieren deiner Lösungen.
+            </p>
+            <div class="rules">
+              <div><span class="danger">Wichtig:</span> Im echten Check darf keine KI verwendet werden. Diese Seite ist nur zur Vorbereitung gedacht.</div>
+              <div><strong>Regel 1:</strong> Versuche Aufgaben immer zuerst selbst zu lösen.</div>
+              <div><strong>Regel 2:</strong> Nutze KI für Erklärungen, zusätzliche Beispiele und zur Fehlerkontrolle.</div>
+              <div><strong>Regel 3:</strong> KI kann sich auch irren – denke immer mit und prüfe, ob die Lösung Sinn ergibt. 🧪 Hinweis: KI kann Fehler machen → immer mit Heft / Buch / Theorieblätter gegenchecken.</div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <footer>
+      Diese Seite ist eine <span>Lernhilfe</span> – nicht erlaubt im echten Check. 
+      Denk mit, frag nach und nutze KI als Unterstützung, nicht als Abkürzung.
+    </footer>
+  </div>
+
+  <script>
+    // Filterlogik
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const cards = document.querySelectorAll(".prompt-card");
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const filter = btn.getAttribute("data-filter");
+
+        filterButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        cards.forEach(card => {
+          const category = card.getAttribute("data-category");
+          if (filter === "alle" || category === filter) {
+            card.style.display = "";
+          } else {
+            card.style.display = "none";
+          }
+        });
+      });
+    });
+
+    // Kopieren
+    function copyPrompt(button) {
+      const card = button.closest(".prompt-card");
+      const textEl = card.querySelector(".prompt-text");
+      const text = textEl.innerText.trim();
+
+      if (!navigator.clipboard) {
+        // Fallback
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+          document.execCommand("copy");
+        } catch (err) {
+          console.error("Kopieren nicht möglich:", err);
+        }
+        document.body.removeChild(textarea);
+        showCopied(button);
+        return;
+      }
+
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          showCopied(button);
+        })
+        .catch(err => {
+          console.error("Clipboard Fehler:", err);
+        });
+    }
+
+    function showCopied(button) {
+      const originalHTML = button.innerHTML;
+      button.classList.add("copied");
+      button.innerHTML = '<span class="emoji">✅</span> Kopiert';
+      setTimeout(() => {
+        button.classList.remove("copied");
+        button.innerHTML = originalHTML;
+      }, 1500);
+    }
+  </script>
+</body>
+</html>

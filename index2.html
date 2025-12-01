@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lern-Prompts S2/S3</title>
+    <style>
+        /* --- DESIGN & STYLING --- */
+        :root {
+            --bg-color: #f4f6f8;
+            --card-bg: #ffffff;
+            --primary: #3b82f6; /* Blau */
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+        }
+        h1 { margin: 0; font-size: 2rem; color: #111827; }
+        .subtitle { color: var(--text-muted); margin-top: 10px; }
+        
+        /* Warnhinweis Box */
+        .disclaimer {
+            background-color: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: #92400e;
+        }
+
+        /* Filter Buttons */
+        .filter-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 1px solid #e5e7eb;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+            color: var(--text-muted);
+        }
+
+        .filter-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .filter-btn.active { background-color: var(--primary); color: white; border-color: var(--primary); }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s;
+        }
+
+        .card:hover { transform: translateY(-3px); }
+
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+        .tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: #eff6ff;
+            color: var(--primary);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: 700;
+        }
+
+        .card h3 { margin: 10px 0 5px 0; font-size: 1.25rem; }
+        .card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; flex-grow: 1; }
+
+        /* Prompt Box & Copy Button */
+        .prompt-box {
+            background: #f3f4f6;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: #374151;
+            position: relative;
+            margin-top: auto; /* Push to bottom */
+            border: 1px solid #e5e7eb;
+        }
+
+        .copy-btn {
+            width: 100%;
+            margin-top: 10px;
+            padding: 8px;
+            background-color: white;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #4b5563;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: background 0.2s;
+        }
+
+        .copy-btn:hover { background-color: #f9fafb; border-color: #9ca3af; }
+        .copy-btn:active { background-color: #e5e7eb; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>🎓 Dein KI-Lernbegleiter</h1>
+        <div class="subtitle">Bereite dich smart auf die S2/S3 Tests vor</div>
+    </header>
+
+    <div class="disclaimer">
+        <strong>⚠️ Wichtig:</strong> Die KI kann Fehler machen (Halluzinationen). Überprüfe Fakten immer mit deinem Schulbuch. Gib keine Namen von Mitschülern ein!
+    </div>
+
+    <!-- Hier werden die Filter-Buttons automatisch eingefügt -->
+    <div class="filter-container" id="filterContainer">
+        <button class="filter-btn active" onclick="filterPrompts('Alle')">Alle</button>
+    </div>
+
+    <!-- Hier werden die Karten automatisch eingefügt -->
+    <div class="grid" id="promptsGrid">
+        <!-- Inhalte kommen aus JSON -->
+    </div>
+</div>
+
+<script>
+    /* --- LOGIK --- */
+    let allPrompts = [];
+
+    // 1. Daten laden
+    fetch('prompts.json')
+        .then(response => response.json())
+        .then(data => {
+            allPrompts = data;
+            generateFilters(data);
+            renderPrompts(data);
+        })
+        .catch(error => console.error('Fehler beim Laden der JSON:', error));
+
+    // 2. Prompts anzeigen
+    function renderPrompts(prompts) {
+        const grid = document.getElementById('promptsGrid');
+        grid.innerHTML = ''; // Leeren
+
+        prompts.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div class="card-header">
+                    <span class="tag">${item.category}</span>
+                </div>
+                <h3>${item.title}</h3>
+                <p>${item.description}</p>
+                <div class="prompt-box">
+                    ${formatPromptText(item.prompt)}
+                    <button class="copy-btn" onclick="copyText(this, '${escapeHtml(item.prompt)}')">
+                        📋 Kopieren
+                    </button>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    // 3. Filter Buttons generieren
+    function generateFilters(data) {
+        const categories = ['Alle', ...new Set(data.map(item => item.category))];
+        const container = document.getElementById('filterContainer');
+        // "Alle" Button ist schon im HTML, daher clearen wir oder hängen an.
+        // Einfacher: Container leeren und neu bauen
+        container.innerHTML = '';
+
+        categories.forEach(cat => {
+            const btn = document.createElement('button');
+            btn.className = `filter-btn ${cat === 'Alle' ? 'active' : ''}`;
+            btn.textContent = cat;
+            btn.onclick = () => {
+                // Active State umschalten
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                filterPrompts(cat);
+            };
+            container.appendChild(btn);
+        });
+    }
+
+    // 4. Filtern
+    function filterPrompts(category) {
+        if (category === 'Alle') {
+            renderPrompts(allPrompts);
+        } else {
+            const filtered = allPrompts.filter(item => item.category === category);
+            renderPrompts(filtered);
+        }
+    }
+
+    // 5. Kopieren Funktion
+    function copyText(btnElement, text) {
+        navigator.clipboard.writeText(text).then(() => {
+            const originalText = btnElement.innerHTML;
+            btnElement.innerHTML = '✅ Kopiert!';
+            btnElement.style.color = 'green';
+            setTimeout(() => {
+                btnElement.innerHTML = originalText;
+                btnElement.style.color = '';
+            }, 2000);
+        });
+    }
+
+    // Hilfsfunktionen
+    function formatPromptText(text) {
+        // Macht Text in [KLAMMERN] fett
+        return text.replace(/\[(.*?)\]/g, '<strong>[$1]</strong>');
+    }
+
+    function escapeHtml(text) {
+        return text.replace(/'/g, "\\'");
+    }
+</script>
+
+</body>
+</html>

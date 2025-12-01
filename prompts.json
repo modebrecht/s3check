@@ -1,0 +1,51 @@
+[
+  {
+    "id": 1,
+    "title": "Der Sokratische Tutor",
+    "category": "Allgemein",
+    "description": "Hilft dir beim Lösen von Aufgaben, ohne die Lösung zu verraten.",
+    "prompt": "Ich möchte eine Übungsaufgabe zum Thema [THEMA] lösen. Bitte gib mir die Aufgabe. Wenn ich antworte oder nicht weiterkomme, verrate mir nicht die Lösung. Stelle mir stattdessen Rückfragen oder gib mir kleine Hinweise, die mich selbst auf die Lösung bringen."
+  },
+  {
+    "id": 2,
+    "title": "Ähnliche Aufgaben finden",
+    "category": "Mathematik",
+    "description": "Erstellt neue Aufgaben basierend auf einer, die du schon hast.",
+    "prompt": "Ich habe folgende Aufgabe nicht verstanden: [AUFGABE EINFÜGEN]. Bitte zeige mir den Lösungsweg Schritt für Schritt. Erstelle mir danach eine neue, ähnliche Aufgabe mit anderen Zahlen, damit ich das Prinzip üben kann."
+  },
+  {
+    "id": 3,
+    "title": "Vokabel-Rollenspiel",
+    "category": "Fremdsprachen",
+    "description": "Übe eine Konversation in Französisch oder Englisch.",
+    "prompt": "Lass uns ein Gespräch auf [SPRACHE] führen. Du bist der Kellner, ich der Gast. Korrigiere meine Fehler am Ende jeder Antwort kurz auf Deutsch, aber bleib im Gespräch in der Fremdsprache."
+  },
+  {
+    "id": 4,
+    "title": "Argumentations-Check",
+    "category": "Deutsch",
+    "description": "Prüft, ob deine Argumente logisch sind.",
+    "prompt": "Ich habe hier drei Argumente für eine Erörterung zum Thema [THEMA]: [DEINE ARGUMENTE]. Sind diese logisch aufgebaut? Welche Gegenargumente könnte man bringen?"
+  },
+  {
+    "id": 5,
+    "title": "Alltags-Vergleich",
+    "category": "Naturkunde",
+    "description": "Erklärt komplexe Bio/Physik Themen einfach.",
+    "prompt": "Erkläre mir das Prinzip von [THEMA, z.B. Photosynthese] mit einem Vergleich aus dem echten Leben (z.B. wie eine Fabrik oder eine Küche)."
+  },
+    {
+    "id": 6,
+    "title": "Alltags-Vergleich",
+    "category": "Naturkunde",
+    "description": "Erklärt komplexe Bio/Physik Themen einfach.",
+    "prompt": "Erkläre mir das sajkdhasdnmasdasdasdjasas asdiasd asdjoiasjdl asdjasjlkd askjd asoidjasd masjlkdasm dasnkjdaskjnd masdnjkasdnasd ansjkodnasnda asljkdsj asd von [THEMA, z.B. Photosynthese] mit einem Vergleich aus dem echten Leben (z.B. wie eine Fabrik oder eine Küche)."
+  },
+      {
+    "id": 7,
+    "title": "Alltags-Vergleich",
+    "category": "Naturkunde",
+    "description": "Erklärt komplexe Bio/Physik Themen einfach.",
+    "prompt": "Erkläre mir das Prinzip von [THEMA, z.B. Photosynthese] mit einem Vergleich aus dem echten Leben (z.B. wie eine Fabrik oder eine Küche)."
+  }
+]
