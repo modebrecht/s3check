@@ -697,7 +697,7 @@
               <div><span class="danger">Wichtig:</span> Im echten Check darf keine KI verwendet werden. Diese Seite ist nur zur Vorbereitung gedacht.</div>
               <div><strong>Regel 1:</strong> Versuche Aufgaben immer zuerst selbst zu lösen.</div>
               <div><strong>Regel 2:</strong> Nutze KI für Erklärungen, zusätzliche Beispiele und zur Fehlerkontrolle.</div>
-              <div><strong>Regel 3:</strong> KI kann sich auch irren – denke immer mit und prüfe, ob die Lösung Sinn ergibt. 🧪 Hinweis: KI kann Fehler machen → immer mit Heft / Buch / Theorieblätter gegenchecken.</div>
+              <div><strong>Regel 3:</strong> 🧪 Hinweis: Auch eine KI kann Fehler machen → denke immer mit und prüfe, ob die Lösung Sinn ergibt; mit Heft / Buch / Theorieblatt gegenchecken.</div>
             </div>
           </div>
         </article>
@@ -791,9 +791,9 @@ Frage mich am Ende 3 Verständnisfragen und warte auf meine Antworten.</pre>
             <p class="prompt-desc">
               Wenn du zusätzliche Übungsaufgaben zu einem Thema brauchst.
             </p>
-            <pre class="prompt-text">Erstelle mir bitte 8 Übungsaufgaben zum Thema &lt;THEMA EINSETZEN&gt; auf Sek-Niveau (Schweiz). 
+            <pre class="prompt-text">Erstelle mir bitte 8 Übungsaufgaben zum Thema &lt;THEMA EINSETZEN&gt; auf Prüfungsniveau S2 / S3 Check. 
 Gib mir zuerst nur die Aufgaben, ohne Lösungen. 
-Wenn ich «Lösungen» schreibe, erkläre mir jede Aufgabe Schritt für Schritt und markiere typische Fehler, die Schüler machen.</pre>
+Wenn ich «Lösungen» schreibe, erkläre mir jede Aufgabe Schritt für Schritt.</pre>
             <div class="card-footer">
               <button class="copy-btn" onclick="copyPrompt(this)">
                 <span class="emoji">📋</span> Prompt kopieren
@@ -816,7 +816,7 @@ Wenn ich «Lösungen» schreibe, erkläre mir jede Aufgabe Schritt für Schritt 
             <p class="prompt-desc">
               Für ein Set aus einfachen, mittleren, schweren Aufgaben plus eine Anschlussaufgabe zum Querdenken.
             </p>
-            <pre class="prompt-text">Erstelle je 3 einfache, 3 mittelschwere und 3 schwere Aufgaben zum Thema &lt;THEMA&gt; (Sek-Niveau). 
+            <pre class="prompt-text">Erstelle je 3 einfache, 3 mittelschwere und 3 schwere Aufgaben zum Thema &lt;THEMA&gt; auf Prüfungsniveau S2 / S3 Check.
 Formuliere klar, ohne Lösungen zu zeigen. 
 Wenn das fertig ist, ergänze eine Anschlussaufgabe, die nicht offensichtlich ist und bei der man zwischen den Zeilen lesen muss, um das Thema wirklich zu verstehen. 
 Teste damit mein erworbenes Wissen.</pre>
@@ -825,6 +825,53 @@ Teste damit mein erworbenes Wissen.</pre>
                 <span class="emoji">📋</span> Prompt kopieren
               </button>
               <div class="hint">Gut, wenn du von Basics bis Transfer üben willst.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Allgemein 4 -->
+        <article class="prompt-card" data-category="allgemein">
+          <div class="prompt-inner">
+            <div class="prompt-header-row">
+              <h2 class="prompt-title">Prüfungsübersicht Fach XY</h2>
+              <div class="subject-pill">
+                <span class="emoji">🗂️</span>
+                Allgemein
+              </div>
+            </div>
+            <p class="prompt-desc">
+              Überblick, was für die S3 Prüfung in einem Fach zu lernen ist.
+            </p>
+            <pre class="prompt-text">Zeige mir eine Übersicht, was ich alles lernen soll für die S3 Prüfung im Fach &lt;FACH&gt;.</pre>
+            <div class="card-footer">
+              <button class="copy-btn" onclick="copyPrompt(this)">
+                <span class="emoji">📋</span> Prompt kopieren
+              </button>
+              <div class="hint">Ersetze &lt;FACH&gt; (z.B. Mathe, NT, Deutsch).</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Allgemein 5 -->
+        <article class="prompt-card" data-category="allgemein">
+          <div class="prompt-inner">
+            <div class="prompt-header-row">
+              <h2 class="prompt-title">Test auf Prüfungsniveau (S2/S3)</h2>
+              <div class="subject-pill">
+                <span class="emoji">📝</span>
+                Allgemein
+              </div>
+            </div>
+            <p class="prompt-desc">
+              Vollständiger Test für das Fach deiner Wahl inkl. Zeitangabe (Kanton Solothurn).
+            </p>
+            <pre class="prompt-text">Erstelle mir einen ausführlichen Test auf Prüfungsniveau des S2 / S3 Checks für das Fach &lt;FACH&gt;. 
+Gib mir auch an, wie viel Zeit du für den Test veranschlagst, und halte dich an kantonale Richtlinien (Solothurn).</pre>
+            <div class="card-footer">
+              <button class="copy-btn" onclick="copyPrompt(this)">
+                <span class="emoji">📋</span> Prompt kopieren
+              </button>
+              <div class="hint">Ersetze &lt;FACH&gt; durch das gewünschte Fach.</div>
             </div>
           </div>
         </article>
@@ -1026,7 +1073,7 @@ Teste damit mein erworbenes Wissen.</pre>
             <p class="prompt-desc">
               Zum Üben von Lesetexten mit Verständnisfragen.
             </p>
-            <pre class="prompt-text">Erstelle einen deutschen Sachtext auf Sek-Niveau (ca. 180–220 Wörter) zu einem Alltagsthema. 
+            <pre class="prompt-text">Erstelle einen deutschen Sachtext auf auf Prüfungsniveau S2 / S3 Check (ca. 180–220 Wörter) zu einem Alltagsthema. 
 Stelle mir danach 6 Verständnisfragen zum Text (gemischt: offene Fragen und Multiple Choice). 
 Frage mich die Fragen nacheinander und warte immer auf meine Antwort, bevor du die nächste Frage stellst.</pre>
             <div class="card-footer">
@@ -1077,7 +1124,7 @@ Wenn ich dir meine Lösungen schicke, korrigiere sie und erkläre mir in einfach
             <p class="prompt-desc">
               Wenn du den Lösungsweg genau sehen möchtest.
             </p>
-            <pre class="prompt-text">Erkläre mir das Thema &lt;MATHE-THEMA&gt; auf Sek-Niveau (z.B. Bruchrechnen, Lineare Gleichungen). 
+            <pre class="prompt-text">Erkläre mir das Thema &lt;MATHE-THEMA&gt; auf Prüfungsniveau S2 / S3 Check. 
 Zeige mir 5 Beispielaufgaben mit ausführlicher Schritt-für-Schritt-Lösung. 
 Schreibe jeden Rechenschritt in einer neuen Zeile und erkläre kurz, was du machst.</pre>
             <div class="card-footer">
@@ -1102,12 +1149,12 @@ Schreibe jeden Rechenschritt in einer neuen Zeile und erkläre kurz, was du mach
             <p class="prompt-desc">
               Eine kleine Mathe-Prüfung zum Üben.
             </p>
-            <pre class="prompt-text">Erstelle eine kleine Mathe-Prüfung mit 6 Aufgaben auf Sek-Niveau (Schweiz) zum Thema &lt;MATHE-THEMA&gt;, gemischt: 
+            <pre class="prompt-text">Erstelle eine kleine Mathe-Prüfung mit 6 Aufgaben auf Prüfungsniveau S2 / S3 Check zum Thema &lt;MATHE-THEMA&gt;, gemischt: 
 – 2 einfache Einstiegsaufgaben 
 – 3 mittelschwere Aufgaben 
 – 1 schwierigere Aufgabe (Transfer). 
 Gib mir nur die Aufgaben. 
-Wenn ich «Korrigieren» schreibe, zeige die Lösungen mit kurzer Erklärung.</pre>
+Wenn ich «Korrigieren» schreibe, zeige die Lösungen mit Erklärungen Schritt für Schritt.</pre>
             <div class="card-footer">
               <button class="copy-btn" onclick="copyPrompt(this)">
                 <span class="emoji">📋</span> Prompt kopieren
@@ -1211,7 +1258,7 @@ Nutze einfache Sätze, passend für die Sek.</pre>
             <p class="prompt-desc">
               Wie beim schriftlichen Teil im Check.
             </p>
-            <pre class="prompt-text">Gib mir ein Schreibthema auf Französisch auf Sek-Niveau, z.B. eine kurze E-Mail oder eine Beschreibung meines Wochenendes. 
+            <pre class="prompt-text">Gib mir ein Schreibthema auf Französisch auf auf Prüfungsniveau S2 / S3 Check, z.B. eine kurze E-Mail oder eine Beschreibung meines Wochenendes. 
 Das Thema soll so sein, dass ich etwa 70–100 Wörter schreibe. 
 Zeig mir zuerst nur das Thema. 
 Wenn ich dir meinen französischen Text sende, korrigiere ihn, gib mir die korrekte Version und erkläre mir 3 typische Fehler auf Deutsch.</pre>
@@ -1237,7 +1284,7 @@ Wenn ich dir meinen französischen Text sende, korrigiere ihn, gib mir die korre
             <p class="prompt-desc">
               Ideal für Themen wie Energie, Ökologie, Körper, Physik.
             </p>
-            <pre class="prompt-text">Erkläre mir das Thema &lt;N&amp;T-THEMA&gt; auf Sek-Niveau (z.B. Fotosynthese, Stromkreis, Energieformen). 
+            <pre class="prompt-text">Erkläre mir das Thema &lt;N&amp;T-THEMA&gt; auf Prüfungsniveau S2 / S3 Check. 
 1. Erkläre es zuerst in Alltagssprache, so dass man ohne Fachwissen mitkommt. 
 2. Erkläre es danach mit den wichtigsten Fachbegriffen und nenne diese Begriffe fett. 
 3. Stelle mir zum Schluss 4 Verständnisfragen (gemischt: leicht und mittelschwer).</pre>
