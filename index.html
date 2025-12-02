@@ -624,6 +624,49 @@
       display: block;
     }
 
+    /* NotebookLM capability tiles */
+    .nlm-tiles {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+    }
+
+    .nlm-tile {
+      border-radius: 14px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      border: 1px solid rgba(136, 146, 171, 0.35);
+      box-shadow: 0 6px 14px rgba(17, 24, 39, 0.08);
+    }
+
+    .nlm-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.5);
+      font-size: 14px;
+    }
+
+    .nlm-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: #111827;
+      color: #f8fafc;
+      margin-left: auto;
+    }
+
     @media (max-width: 480px) {
       header { border-radius: 22px; }
       .prompt-card { border-radius: 16px; }
@@ -1084,6 +1127,56 @@ Formuliere 3 Prüfungsfragen aus diesem Kontext, Niveau S2/S3 Check.</pre>
           </div>
         </article>
 
+        <!-- NotebookLM -->
+        <article class="prompt-card" data-category="notebooklm">
+          <div class="prompt-inner">
+            <div class="prompt-header-row">
+              <h2 class="prompt-title">NotebookLM verstehen</h2>
+              <div class="subject-pill">
+                <span class="emoji">📒</span>
+                NotebookLM
+              </div>
+            </div>
+            <p class="prompt-desc">
+              NotebookLM ist ein KI-Notizbuch von Google, das auf deinen eigenen Quellen antwortet (z.B. Textdokumente, DOCX, PDF).
+            </p>
+            <div class="nlm-tiles">
+              <div class="nlm-tile" style="background: #e6ecff;">
+                <span class="nlm-icon">🎧</span>
+                Audio-Zusammenfassung
+              </div>
+              <div class="nlm-tile" style="background: #e5f3e9;">
+                <span class="nlm-icon">🎬</span>
+                Videoübersicht
+              </div>
+              <div class="nlm-tile" style="background: #efe7f1;">
+                <span class="nlm-icon">🧠</span>
+                Mindmap
+              </div>
+              <div class="nlm-tile" style="background: #f3eddc;">
+                <span class="nlm-icon">📄</span>
+                Berichte
+              </div>
+              <div class="nlm-tile" style="background: #f7eae6;">
+                <span class="nlm-icon">🗂️</span>
+                Karteikarten
+              </div>
+              <div class="nlm-tile" style="background: #e5f2f9;">
+                <span class="nlm-icon">❓</span>
+                Quiz
+              </div>
+              <div class="nlm-tile" style="background: #f2ebf8;">
+                <span class="nlm-icon">📊</span>
+                Infografik
+              </div>
+              <div class="nlm-tile" style="background: #f4f1e6;">
+                <span class="nlm-icon">🖥️</span>
+                Präsentation
+              </div>
+            </div>
+          </div>
+        </article>
+
         <!-- Deutsch 1 -->
         <article class="prompt-card" data-category="deutsch">
           <div class="prompt-inner">
@@ -1513,6 +1606,7 @@ Bitte:
       <div class="footer-actions">
         <button class="footer-btn" id="footerPromptButton">Prompt verbessern</button>
         <button class="footer-btn" id="footerAopButton">App erstellen</button>
+        <button class="footer-btn" id="footerNotebookButton">NotebookLM</button>
       </div>
     </footer>
   </div>
@@ -1557,6 +1651,11 @@ Bitte:
     const footerAopButton = document.getElementById("footerAopButton");
     if (footerAopButton) {
       footerAopButton.addEventListener("click", () => applyFilter("app"));
+    }
+
+    const footerNotebookButton = document.getElementById("footerNotebookButton");
+    if (footerNotebookButton) {
+      footerNotebookButton.addEventListener("click", () => applyFilter("notebooklm"));
     }
 
     // Kopieren
