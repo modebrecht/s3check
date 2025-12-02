@@ -523,6 +523,15 @@
       box-shadow: 0 8px 16px rgba(22, 163, 74, 0.18);
     }
 
+    .copy-btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+      background: #f3f4f6;
+      color: #9ca3af;
+    }
+
     .hint { font-size: 11.5px; color: var(--muted); }
     .hint strong { color: #111827; }
 
@@ -540,6 +549,30 @@
     }
 
     footer span { color: var(--accent); font-weight: 600; }
+
+    .footer-actions {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .footer-btn {
+      padding: 9px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(136, 146, 171, 0.45);
+      background: linear-gradient(135deg, rgba(59, 91, 255, 0.12), rgba(124, 58, 237, 0.12));
+      color: #0f1f5a;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(17, 24, 39, 0.12);
+    }
+
+    .footer-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(17, 24, 39, 0.14);
+    }
 
     @media (max-width: 480px) {
       header { border-radius: 22px; }
@@ -576,6 +609,9 @@
         <button class="filter-btn" data-filter="franz">
           <span>FR</span>Französisch
         </button>
+        <button class="filter-btn" data-filter="prompt">
+          <span>⚡</span>Prompt verbessern
+        </button>
         <button class="filter-btn" data-filter="sos">
           <span>🚨</span>SOS
         </button>
@@ -590,6 +626,7 @@
       <button class="side-btn" data-filter="deutsch" title="Deutsch">DE</button>
       <button class="side-btn" data-filter="englisch" title="Englisch">EN</button>
       <button class="side-btn" data-filter="franz" title="Französisch">FR</button>
+      <button class="side-btn" data-filter="prompt" title="Prompt verbessern">⚡</button>
       <button class="side-btn" data-filter="sos" title="SOS">🚨</button>
     </nav>
 
@@ -742,6 +779,75 @@ Teste damit mein erworbenes Wissen.</pre>
                 <span class="emoji">📋</span> Prompt kopieren
               </button>
               <div class="hint">Gut, wenn du von Basics bis Transfer üben willst.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Prompt verbessern -->
+        <article class="prompt-card" data-category="prompt">
+          <div class="prompt-inner">
+            <div class="prompt-header-row">
+              <h2 class="prompt-title">Antwort-Niveau steigern</h2>
+              <div class="subject-pill">
+                <span class="emoji">⚡</span>
+                Prompt
+              </div>
+            </div>
+            <p class="prompt-desc">
+              Nutze das, wenn du eine vertiefte (Level 2) Antwort anstoßen möchtest.
+            </p>
+            <pre class="prompt-text">Deine Antwort war eine Level1 Antwort, ich benötige die Level2 Antwort bitte.</pre>
+            <div class="card-footer">
+              <button class="copy-btn" onclick="copyPrompt(this)">
+                <span class="emoji">📋</span> Prompt kopieren
+              </button>
+              <div class="hint">Kopieren und direkt an die KI senden.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Prompt auf Englisch testen -->
+        <article class="prompt-card" data-category="prompt">
+          <div class="prompt-inner">
+            <div class="prompt-header-row">
+              <h2 class="prompt-title">Vergleich in Englisch</h2>
+              <div class="subject-pill">
+                <span class="emoji">🌐</span>
+                Prompt
+              </div>
+            </div>
+            <p class="prompt-desc">
+              Nutze das, wenn die Antwort nicht passt oder du eine Vergleichsantwort auf Englisch möchtest.
+            </p>
+            <pre class="prompt-text">Wenn du nicht das gewünschte Ergebnis bekommst oder eine Vergleichsantwort möchtest, probier deinen Prompt auf Englisch.</pre>
+            <div class="card-footer">
+              <button class="copy-btn" disabled>
+                <span class="emoji">📋</span> Prompt kopieren
+              </button>
+              <div class="hint">Manchmal liefert ein englischer Prompt eine klarere Antwort.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Länger denken lassen -->
+        <article class="prompt-card" data-category="prompt">
+          <div class="prompt-inner">
+            <div class="prompt-header-row">
+              <h2 class="prompt-title">Modell länger nachdenken lassen</h2>
+              <div class="subject-pill">
+                <span class="emoji">⏳</span>
+                Prompt
+              </div>
+            </div>
+            <p class="prompt-desc">
+              "denke länger nach" am Ende deines Prompts hinzufügen, um das KI-Modell länger nachdenken zu lassen (wechselt z.B. bei ChatGPT aufs intelligentere Thinking-Modell).
+            </p>
+            <pre class="prompt-text">{ dein voriger prompt } + „denke länger nach“</pre>
+            <div class="card-footer">
+              <button class="copy-btn" data-copy="denke länger nach" onclick="copyPrompt(this)">
+                <span class="emoji">📋</span> Prompt kopieren
+              </button>
+              <div class="hint">Kurz anfügen, wenn du mehr Tiefe willst.</div>
             </div>
           </div>
         </article>
@@ -1072,6 +1178,9 @@ Bitte:
     <footer>
       Diese Seite ist eine <span>Lernhilfe</span> – nicht erlaubt im echten Check. 
       Denke kritisch mit, frag nach und nutze KI als Unterstützung, nicht als Abkürzung.
+      <div class="footer-actions">
+        <button class="footer-btn" id="footerPromptButton">Prompt verbessern</button>
+      </div>
     </footer>
   </div>
 
@@ -1106,11 +1215,18 @@ Bitte:
 
     applyFilter("home");
 
+    // Footer button triggers prompt filter
+    const footerPromptButton = document.getElementById("footerPromptButton");
+    if (footerPromptButton) {
+      footerPromptButton.addEventListener("click", () => applyFilter("prompt"));
+    }
+
     // Kopieren
     function copyPrompt(button) {
       const card = button.closest(".prompt-card");
       const textEl = card.querySelector(".prompt-text");
-      const text = textEl.innerText.trim();
+      const fallbackText = textEl ? textEl.innerText.trim() : "";
+      const text = button.dataset.copy || fallbackText;
 
       if (!navigator.clipboard) {
         // Fallback
@@ -1146,6 +1262,7 @@ Bitte:
         button.innerHTML = originalHTML;
       }, 1500);
     }
+
   </script>
 </body>
 </html>
